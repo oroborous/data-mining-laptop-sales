@@ -9,6 +9,8 @@ Answers the question: How did the retail price of a laptop change over time, per
 
 `names(df) <- c("month", "price", "power", "power.min", "power.max", "category", "ppd")`
 
+`df$mf <- as.factor(df$month)`
+
 `avg.price <- aggregate(df$price, list(df$month, df$category), FUN=mean)`
 
 `names(avg.price) <- c("month", "category", "price")`
