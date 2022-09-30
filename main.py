@@ -130,29 +130,29 @@ def overall_min_max():
                 x += 1
             else:
                 price = int(vals[4])
-                omm[0] = min(omm[0], price)
-                omm[1] = max(omm[1], price)
+                omm[1][0] = min(omm[1][0], price)
+                omm[1][1] = max(omm[1][1], price)
                 screen = int(vals[5])
-                omm[2] = min(omm[2], screen)
-                omm[3] = max(omm[3], screen)
+                omm[1][2] = min(omm[1][2], screen)
+                omm[1][3] = max(omm[1][3], screen)
                 battery = int(vals[6])
-                omm[4] = min(omm[4], battery)
-                omm[5] = max(omm[5], battery)
+                omm[1][4] = min(omm[1][4], battery)
+                omm[1][5] = max(omm[1][5], battery)
                 ram = int(vals[7])
-                omm[6] = min(omm[6], ram)
-                omm[7] = max(omm[7], ram)
+                omm[1][6] = min(omm[1][6], ram)
+                omm[1][7] = max(omm[1][7], ram)
                 proc = float(vals[8])
-                omm[8] = min(omm[8], proc)
-                omm[9] = max(omm[9], proc)
+                omm[1][8] = min(omm[1][8], proc)
+                omm[1][9] = max(omm[1][9], proc)
                 wifi = 1 if (vals[9] == "Yes") else 0
-                omm[10] = min(omm[10], wifi)
-                omm[11] = max(omm[11], wifi)
+                omm[1][10] = min(omm[1][10], wifi)
+                omm[1][11] = max(omm[1][11], wifi)
                 hd = int(vals[10])
-                omm[12] = min(omm[12], hd)
-                omm[13] = max(omm[13], hd)
+                omm[1][12] = min(omm[1][12], hd)
+                omm[1][13] = max(omm[1][13], hd)
                 apps = 1 if (vals[11] == "Yes") else 0
-                omm[14] = min(omm[14], apps)
-                omm[15] = max(omm[15], apps)
+                omm[1][14] = min(omm[1][14], apps)
+                omm[1][15] = max(omm[1][15], apps)
 
     file_path_out = Path.cwd() / "overall/LaptopSalesMinMax.csv"
 
@@ -162,7 +162,6 @@ def overall_min_max():
             out.write(",".join([str(num) for num in row]))
             out.write("\n")
 
-    print(omm)
     return omm
 
 
@@ -355,9 +354,10 @@ def categoried_sales(mpmm):
 
 
 if __name__ == '__main__':
-    mmm = monthly_min_max()
-    sc = scaled_sales(mmm)
-    mpmm = monthly_power_min_max()
-    cat = categoried_sales(mpmm)
+    # mmm = monthly_min_max()
+    # sc = scaled_sales(mmm)
+    # mpmm = monthly_power_min_max()
+    # cat = categoried_sales(mpmm)
+    omm = overall_min_max()
 
 
