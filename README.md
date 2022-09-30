@@ -19,7 +19,7 @@ The code below plots the average price per laptop category month-to-month as a l
 
 `names(avg.price) <- c("month", "category", "price")`
 
-`p1 <- ggplot(data=avg.price, aes(x=month, y=price, group=category)) + geom_line() + labs(title="Retail Price of Laptops", x ="Month", y = "Retail price")`
+`p1 <- ggplot(data=avg.price, aes(x=month, y=price, group=category, color=category)) + geom_line() + labs(title="Retail Price of Laptops", x ="Month", y = "Retail price")`
 
 ![Average retail price](PricePerCategory1.png "Average retail price")
 
@@ -29,7 +29,7 @@ The code below plots the average purchasing power of the customer month-to-month
 
 `names(avg.ppd) <- c("month", "category", "ppd")`
 
-`p2 <- ggplot(data=avg.ppd, aes(x=month, y=ppd, group=category)) + geom_line() + labs(title="Customer Purchasing Power", x ="Month", y = "Power per dollar")`
+`p2 <- ggplot(data=avg.ppd, aes(x=month, y=ppd, group=category, color=category)) + geom_line() + labs(title="Customer Purchasing Power", x ="Month", y = "Power per dollar")`
 
 ![Average purchasing power](PpdPerCategory1.png "Average purchasing power")
 
