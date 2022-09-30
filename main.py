@@ -490,7 +490,7 @@ def categoried_monthly_sales(mpmm):
 def categoried_overall_sales(opmm):
     cat = []
 
-    file_path = Path.cwd() / "monthly/LaptopSalesScaled.csv"
+    file_path = Path.cwd() / "overall/LaptopSalesScaled.csv"
 
     with file_path.open() as laptop_sales_scaled:
         i = 0
@@ -511,16 +511,16 @@ def categoried_overall_sales(opmm):
 
             score = float(vals[2])
             cat_row.append(score)
-            minv = opmm[month][1]
+            minv = opmm[1][0]
             cat_row.append(minv)
-            maxv = opmm[month][2]
+            maxv = opmm[1][1]
             cat_row.append(maxv)
             cat_row.append(categorize(score, maxv, minv))
 
             ppd = score / price
             cat_row.append(ppd)
 
-    file_path_out = Path.cwd() / "monthly/LaptopSalesCategorized.csv"
+    file_path_out = Path.cwd() / "overall/LaptopSalesCategorized.csv"
 
     with file_path_out.open(mode="w") as out:
         for row in cat:
@@ -533,9 +533,10 @@ if __name__ == '__main__':
     # mmm = monthly_min_max()
     # sc = scaled_monthly_sales(mmm)
     # mpmm = monthly_power_min_max()
-    # cat = categoried_sales(mpmm)
+    # cat = categoried_monthly_sales(mpmm)
     omm = overall_min_max()
     sc = scaled_overall_sales(omm)
     opmm = overall_power_min_max()
+    cat = categoried_overall_sales(opmm)
 
 
