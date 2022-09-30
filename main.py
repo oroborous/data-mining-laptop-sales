@@ -530,13 +530,13 @@ def categoried_overall_sales(opmm):
 
 
 if __name__ == '__main__':
-    # mmm = monthly_min_max()
-    # sc = scaled_monthly_sales(mmm)
-    # mpmm = monthly_power_min_max()
-    # cat = categoried_monthly_sales(mpmm)
-    omm = overall_min_max()
-    sc = scaled_overall_sales(omm)
-    opmm = overall_power_min_max()
-    cat = categoried_overall_sales(opmm)
+    mmm = monthly_min_max()
+    sc = scaled_monthly_sales(mmm)
+    mpmm = monthly_power_min_max()
+    cat = categoried_monthly_sales(mpmm)
+    # omm = overall_min_max()
+    # sc = scaled_overall_sales(omm)
+    # opmm = overall_power_min_max()
+    # cat = categoried_overall_sales(opmm)
 
 
