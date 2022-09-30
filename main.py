@@ -46,9 +46,6 @@ def monthly_min_max():
                     month_row.append(9999) # default min
                     month_row.append(-9999) # default max
 
-    print(mmm)
-
-
     file_path = Path.home() / "Dropbox/marquette/COSC 5610 Data Mining/homework/LaptopSales.csv"
 
     with file_path.open() as laptop_sales:
@@ -91,15 +88,83 @@ def monthly_min_max():
                 mmm[month][15] = min(mmm[month][15], apps)
                 mmm[month][16] = max(mmm[month][16], apps)
 
-    print(mmm)
-
-    file_path_out = Path.home() / "Dropbox/marquette/COSC 5610 Data Mining/homework/LaptopSalesMinMax.csv"
+    file_path_out = Path.cwd() / "monthly/LaptopSalesMinMax.csv"
 
     with file_path_out.open(mode="w") as out:
         for row in mmm:
             print(row)
             out.write(",".join([str(num) for num in row]))
             out.write("\n")
+
+    print(mmm)
+    return mmm
+
+def overall_min_max():
+    cols = ["price", "screen", "battery", "ram", "proc", "wifi", "hd", "apps"]
+    # omm (overall-min-max) is table of min/maxes
+    # price-min   price-max   screen-min  screen-max
+    # 395         457         15          15
+
+    omm = []
+    for row in range(0, 2):
+        omm_row = []
+        omm.append(omm_row)
+        for col in range(0, len(cols)):
+            if row == 0:
+                omm_row.append(cols[col] + ".min")
+                omm_row.append(cols[col] + ".max")
+            else:
+                omm_row.append(9999)  # default min
+                omm_row.append(-9999)  # default max
+
+    file_path = Path.home() / "Dropbox/marquette/COSC 5610 Data Mining/homework/LaptopSales.csv"
+
+    with file_path.open() as laptop_sales:
+        i = 0
+        x = 0
+        for line in laptop_sales.readlines():
+            i += 1  # line number
+            line = line.strip()
+            vals = line.split(",")
+            if i == 1 or vals[0] == "" or vals[4] == "":
+                x += 1
+            else:
+                price = int(vals[4])
+                omm[0] = min(omm[0], price)
+                omm[1] = max(omm[1], price)
+                screen = int(vals[5])
+                omm[2] = min(omm[2], screen)
+                omm[3] = max(omm[3], screen)
+                battery = int(vals[6])
+                omm[4] = min(omm[4], battery)
+                omm[5] = max(omm[5], battery)
+                ram = int(vals[7])
+                omm[6] = min(omm[6], ram)
+                omm[7] = max(omm[7], ram)
+                proc = float(vals[8])
+                omm[8] = min(omm[8], proc)
+                omm[9] = max(omm[9], proc)
+                wifi = 1 if (vals[9] == "Yes") else 0
+                omm[10] = min(omm[10], wifi)
+                omm[11] = max(omm[11], wifi)
+                hd = int(vals[10])
+                omm[12] = min(omm[12], hd)
+                omm[13] = max(omm[13], hd)
+                apps = 1 if (vals[11] == "Yes") else 0
+                omm[14] = min(omm[14], apps)
+                omm[15] = max(omm[15], apps)
+
+    file_path_out = Path.cwd() / "overall/LaptopSalesMinMax.csv"
+
+    with file_path_out.open(mode="w") as out:
+        for row in omm:
+            print(row)
+            out.write(",".join([str(num) for num in row]))
+            out.write("\n")
+
+    print(omm)
+    return omm
+
 
     # for each laptop, rescale each component 1-10 to reflect relative "power" to other
     # laptops sold in the same month
@@ -111,9 +176,8 @@ def monthly_min_max():
     # month price       screen      battery     ram     power   category
     # 1     395         1           8.7         5.6     15.3    Mid Range
     # 2     417         10          5.4         2.3     17.7    Low Range
-
+def scaled_sales(mmm):
     sc = []
-
 
     file_path = Path.home() / "Dropbox/marquette/COSC 5610 Data Mining/homework/LaptopSales.csv"
 
@@ -198,11 +262,14 @@ def monthly_min_max():
             out.write(",".join([str(num) for num in row]))
             out.write("\n")
 
+    return sc
+
+
     # mpmm (monthly-power-min-max) is table of power min/maxes
     # month power-min   power-max
     # 1     43.561      67.999
     # 2     44.718      68.412
-
+def monthly_power_min_max():
     mpmm = []
     mpmm.append(["month", "power-min", "power-max"])
 
@@ -231,6 +298,9 @@ def monthly_min_max():
             out.write(",".join([str(num) for num in row]))
             out.write("\n")
 
+    return mpmm
+
+
     # for each laptop, categorize as "Low Range", "Mid Range", or "Top of the Line"
     # based on how much power it had versus other laptops sold that month
 
@@ -242,6 +312,7 @@ def monthly_min_max():
     # 1     395         15.3    43.561      67.999      Low Range   0.0387
     # 1     417         17.7    43.561      67.999      Mid Range   0.0424
 
+def categoried_sales(mpmm):
     cat = []
 
     file_path = Path.home() / "Dropbox/marquette/COSC 5610 Data Mining/homework/LaptopSalesScaled.csv"
@@ -282,7 +353,11 @@ def monthly_min_max():
             out.write(",".join([str(num) for num in row]))
             out.write("\n")
 
+
 if __name__ == '__main__':
-    monthly_min_max()
+    mmm = monthly_min_max()
+    sc = scaled_sales(mmm)
+    mpmm = monthly_power_min_max()
+    cat = categoried_sales(mpmm)
 
 
